@@ -1,1 +1,4 @@
-copied_audiofiles/
+*.wav
+*.mp3
+*.flac
+./copied_audiofiles/
