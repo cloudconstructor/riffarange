@@ -73,13 +73,17 @@ class db_operations:
         for file in os.listdir(self.folder):
             if fnmatch.fnmatch(file, '*.wav') or fnmatch.fnmatch(file, '*.mp3') or fnmatch.fnmatch(file, '*.ogg'):
                 filenames.append(file)
-        sql = 'INSERT INTO AUDIOFILES (filename, path, lock, hide) values(?, ?, ?, ?)'
-        for filename in filenames:
-            e = self.db_checkFilenameExists(self.folder, filename)
-            if e == 0:
-                filedata.append([filename, folder, 0, 0])
-        with self.db:
-            self.db.executemany(sql, filedata)
+
+        if len(filenames) == 0:
+            print("No files found in '"+folder+"'")
+        else:
+            sql = 'INSERT INTO AUDIOFILES (filename, path, lock, hide) values(?, ?, ?, ?)'
+            for filename in filenames:
+                e = self.db_checkFilenameExists(self.folder, filename)
+                if e == 0:
+                    filedata.append([filename, folder, 0, 0])
+            with self.db:
+                self.db.executemany(sql, filedata)
 
     def db_checkFilenameExists(self, folder, filename):
         with self.db:
@@ -92,10 +96,13 @@ class db_operations:
                 
 
 def getFileList(folder):
-    filez = [""]
+    filez = []
     for file in os.listdir(folder):
         if fnmatch.fnmatch(file, '*.wav') or fnmatch.fnmatch(file, '*.mp3') or fnmatch.fnmatch(file, '*.ogg'):
             filez.append(file)
+
+    if len(filez) == 0:
+        print("No files found in '"+folder+"'")
     return(filez)
 
 
