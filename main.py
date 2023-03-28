@@ -10,7 +10,7 @@ notebook = ttk.Notebook(root, width=800, height= 480)
 notebook.pack(pady=0, expand=True)
 
 # Child frames
-frame1 = ttk.Frame(notebook, padding=10, style="Dark.TFrame", borderwidth=4)
+frame1 = ttk.Frame(notebook, padding=10, style="Dark.TFrame")
 frame1.pack(fill=BOTH, expand=True)
 
 frame2 = ttk.Frame(notebook, padding=10, style="Dark.TFrame")
@@ -30,6 +30,7 @@ notebook.pack(expand = 1, fill ="both")
 f.tab1(frame1)
 f.tab2(frame2)
 f.tab3(frame3)
+
 
 
 root.mainloop()

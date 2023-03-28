@@ -2,7 +2,8 @@ from tkinter import *
 import tkinter as tk
 from tkinter import ttk
 from tkinter.ttk import Style
-from tkinter.messagebox import showinfo
+import functions as fn
+# from tkinter.messagebox import showinfo
 
 #styling def
 DarkBg = "#333"
@@ -12,6 +13,7 @@ DarkFg = "#fff"
 defaultFont = "verdana"
 defaultFontSize_tab = 13
 defaultFontSize_title = 15
+defaultFontSize = 12
 buttonFontSize = 10
 buttonBg = "#555"
 buttonBgSel_red = "#fc0000"
@@ -24,6 +26,8 @@ buttonFg = "#fff"
 fieldBg = "#555"
 fieldFg = "#fff"
 treeBg = "#333"
+scrollBg = "#222"
+scrollFg = "#555"
 
 
 
@@ -64,6 +68,7 @@ def theme():
                     "highlightthickness": 1,
                     "borderwidth": 0,
                     "background": treeBg,
+                    "fieldbackground": treeBg,
                     "foreground": "#fff",
                     },
                 "map": {
@@ -83,6 +88,13 @@ def theme():
                     "foreground": "#fff",
                     }
                 },
+            "TScrollbar":{
+                "configure":{
+                    "troughcolor": scrollBg,
+                    "background": scrollFg,
+                    "relief": INSIDE,
+                    }
+                },
             
         } 
     )
@@ -96,44 +108,31 @@ def theme():
 
 
 def tab1(frame1):
-    nsl = ttk.Label(frame1, text="Song Arrangements", font=("Arial Bold",defaultFontSize_title), background=DarkBg, foreground=DarkFg)
-    nsl.place(relx=0,rely=0.03)
-
-    nsb = Button(frame1, text="Create new", fg="white", bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
-    nsb.place(relx=0.85,rely=0.13)
-
-    psb = Button(frame1, text="Edit", fg="white", bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
-    psb.place(relx=0.85,rely=0.23)
-
-    psb = Button(frame1, text="Delete", fg="white", bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
-    psb.place(relx=0.85,rely=0.33)
-
-
-    nsb = Button(frame1, text="Play", fg="white", bg=buttonBgSel_blue, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
-    nsb.place(relx=0.85,rely=0.70)
-
-    nsb = Button(frame1, text="Stop", fg="white", bg=buttonBgSel_red, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
-    nsb.place(relx=0.85,rely=0.80)
-
+    nsl = ttk.Label(frame1, text="Song Arrangements", font=("Arial Bold",defaultFontSize), background=DarkBg, foreground=DarkFg)
+    nsl.place(relx=0,rely=0.01)
 
     # songlist ---------------------------------
-    columns = ('first_name', 'last_name', 'email')
+    columns = ('name', 'desc', 'tuning')
     tree = ttk.Treeview(frame1, columns=columns, show='headings',style="mytheme.Treeview", height="15",  selectmode="extended")
 
 
     # define headings
-    tree.heading('first_name', text='Name', anchor="w")
-    tree.heading('last_name', text='Description', anchor="w")
-    tree.heading('email', text='Tuning', anchor="w")
+    tree.heading('name', text='Name', anchor="w")
+    tree.heading('desc', text='Description', anchor="w")
+    tree.heading('tuning', text='Tuning', anchor="w")
+
+    tree.column('name', width=250)
+    tree.column('desc', width=315)
+    tree.column('tuning', width=60)
 
     # generate sample data -----------------------------------------------------
-    contacts = []
-    for n in range(1, 100):
-        contacts.append((f'first {n}', f'last {n}', f'email{n}@example.com'))
+    # contacts = []
+    # for n in range(1, 100):
+    #     contacts.append((f'first {n}', f'last {n}', f'email{n}@example.com'))
 
-    # add data to the treeview
-    for contact in contacts:
-        tree.insert('', tk.END, values=contact)
+    # # add data to the treeview
+    # for contact in contacts:
+    #     tree.insert('', tk.END, values=contact)
 
     def item_selected(event):
         for selected_item in tree.selection():
@@ -145,15 +144,119 @@ def tab1(frame1):
     # --------------------------------------------------------------------------
 
     tree.bind('<<TreeviewSelect>>', item_selected)
-    tree.place(relx=0.005 ,rely=0.12)
+    tree.place(relx=0.002 ,rely=0.08)
+
+    testfolder = "C:/Users/dclou/Music/Black Stone Machine - One With the Horde EP/One With The Horde EP/"
+
+    test = fn.getFileList(testfolder)
+    # print(test)
+    
 
     # add a scrollbar
     scrollbar = ttk.Scrollbar(frame1, orient=tk.VERTICAL, command=tree.yview)
     tree.configure(yscroll=scrollbar.set)
-    scrollbar.place(relx=0.78 ,rely=0.12, height=310+20)
+    scrollbar.place(relx=0.81 ,rely=0.08, height=308+20)
+
+    nsb = Button(frame1, text="Create new", fg="white", bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
+    nsb.place(relx=0.85,rely=0.08)
+
+    psb = Button(frame1, text="Edit", fg="white", bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
+    psb.place(relx=0.85,rely=0.18)
+
+    psb = Button(frame1, text="Delete", fg="white", bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
+    psb.place(relx=0.85,rely=0.28)
+
+
+    nsb = Button(frame1, text="Play", fg="white", bg=buttonBgSel_blue, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
+    nsb.place(relx=0.85,rely=0.66)
+
+    nsb = Button(frame1, text="Stop", fg="white", bg=buttonBgSel_red, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
+    nsb.place(relx=0.85,rely=0.76)
+
+
+
 
 def tab2(frame2):
-    ttk.Label(frame2, text="Audio Files", font=("Arial Bold",defaultFontSize_title), background=DarkBg, foreground=DarkFg).grid(column = 1,row = 1)
+    # allfiles ---------------------------------
+    nsl = ttk.Label(frame2, text="Discovered Audio files", font=("Arial Bold",defaultFontSize), background=DarkBg, foreground=DarkFg)
+    nsl.place(relx=0,rely=0.01)
+
+    columns = ('col1', 'col2', 'col3')
+    tree1 = ttk.Treeview(frame2, columns=columns, show='headings',style="mytheme.Treeview", height="7",  selectmode="extended")
+
+    tree1.heading('col1', text='Name/Filename', anchor="w")
+    tree1.heading('col2', text='Description', anchor="w")
+    tree1.heading('col3', text='Tuning', anchor="w")
+
+    tree1.column('col1', width=250)
+    tree1.column('col2', width=315)
+    tree1.column('col3', width=60)
+
+    # tree.bind('<<TreeviewSelect>>', item_selected)
+    tree1.place(relx=0.002 ,rely=0.08)
+
+    scrollbar = ttk.Scrollbar(frame2, orient=tk.VERTICAL, command=tree1.yview)
+    tree1.configure(yscroll=scrollbar.set)
+    scrollbar.place(relx=0.81 ,rely=0.08, height=148+20)
+
+    # validated files ---------------------------------
+    nsl2 = ttk.Label(frame2, text="Validated Audio files", font=("Arial Bold",defaultFontSize), background=DarkBg, foreground=DarkFg)
+    nsl2.place(relx=0,rely=0.50)
+
+    columns2 = ('col1', 'col2', 'col3')
+    tree2 = ttk.Treeview(frame2, columns=columns2, show='headings',style="mytheme.Treeview", height="7",  selectmode="extended")
+    
+    tree2.heading('col1', text='Name/Filename', anchor="w")
+    tree2.heading('col2', text='Description', anchor="w")
+    tree2.heading('col3', text='Tuning', anchor="w")
+
+    # minwidth = tree2.column('col1', option='minwidth')
+    tree2.column('col1', width=250)
+    tree2.column('col2', width=315)
+    tree2.column('col3', width=60)
+
+    # tree.bind('<<TreeviewSelect>>', item_selected)
+    tree2.place(relx=0.005 ,rely=0.56)
+
+    scrollbar2 = ttk.Scrollbar(frame2, orient=tk.VERTICAL, command=tree2.yview)
+    tree2.configure(yscroll=scrollbar2.set)
+    scrollbar2.place(relx=0.81 ,rely=0.56 ,height=148+20)
+    
+
+    nsb = Button(frame2, text="Hide", fg="white", bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
+    nsb.place(relx=0.85,rely=0.08)
+
+    nsb1 = Button(frame2, text="View Hidden", fg="white", bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
+    nsb1.place(relx=0.85,rely=0.18)
+
+    nsb2 = Button(frame2, text="Validate", fg="white", bg=buttonBgSel_green, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
+    nsb2.place(relx=0.85,rely=0.28)
+
+    # nsb3 = Button(frame2, text="Stop", fg="white", bg=buttonBgSel_red, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
+    # nsb3.place(relx=0.85,rely=0.38)
+
+    nsb3 = Button(frame2, text="Remove", fg="white", bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
+    nsb3.place(relx=0.85,rely=0.56)
+
+    # nsb4 = Button(frame2, text="View Hidden", fg="white", bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
+    # nsb4.place(relx=0.85,rely=0.66)
+
+    nsb2 = Button(frame2, text="Play", fg="white", bg=buttonBgSel_blue, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
+    nsb2.place(relx=0.85,rely=0.76)
+
+    nsb3 = Button(frame2, text="Stop", fg="white", bg=buttonBgSel_red, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
+    nsb3.place(relx=0.85,rely=0.86)
+
+
+
+
+
+
+
+
+
+
 
 def tab3(frame3):
-    ttk.Label(frame3, text="Folders", font=("Arial Bold",defaultFontSize_title), background=DarkBg, foreground=DarkFg).grid(column = 1,row = 1)
+    nsl = ttk.Label(frame3, text="Folders", font=("Arial Bold",defaultFontSize), background=DarkBg, foreground=DarkFg)
+    nsl.place(relx=0,rely=0.01)
