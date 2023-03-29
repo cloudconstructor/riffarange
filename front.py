@@ -180,23 +180,36 @@ def tab1(frame1):
 
 
     nsb = Button(frame1, text="Play", fg=buttonFg, bg=buttonBgSel_blue, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
-    nsb.place(relx=0.85,rely=0.66)
+    nsb.place(relx=0.85,rely=0.76)
 
     nsb = Button(frame1, text="Stop", fg=buttonFg, bg=buttonBgSel_red, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
-    nsb.place(relx=0.85,rely=0.76)
+    nsb.place(relx=0.85,rely=0.86)
+
 
 
 
 
 def tab2(frame2):
+
+    def showDetailsFrame():
+        initPage.pack_forget()
+        editPage.pack(fill=BOTH, expand=True)
+        
+    def showFileListFrame():
+        editPage.pack_forget()
+        initPage.pack(fill=BOTH, expand=True)
+        
+
+    initPage = ttk.Frame(frame2,padding=0, style="Dark.TFrame")
+    
     # allfiles ---------------------------------
-    nsl = ttk.Label(frame2, text="Discovered Audio files", font=("Arial Bold",defaultFontSize), background=DarkBg, foreground=DarkFg)
+    nsl = ttk.Label(initPage, text="Discovered Audio files", font=("Arial Bold",defaultFontSize), background=DarkBg, foreground=DarkFg)
     nsl.place(relx=0,rely=0.01)
 
 
     # file list ---------------------------------
     columns = ('name', 'desc', 'tuning')
-    tree = ttk.Treeview(frame2, columns=columns, show='headings',style="mytheme.Treeview", height="17",  selectmode="extended")
+    tree = ttk.Treeview(initPage, columns=columns, show='headings',style="mytheme.Treeview", height="17",  selectmode="extended")
 
 
     # define headings
@@ -234,31 +247,44 @@ def tab2(frame2):
     test = fn.getFileList(testfolder)
     # print(test)
     
-    scrollbar = ttk.Scrollbar(frame2, orient=tk.VERTICAL, command=tree.yview)
+    scrollbar = ttk.Scrollbar(initPage, orient=tk.VERTICAL, command=tree.yview)
     tree.configure(yscroll=scrollbar.set)
     scrollbar.place(relx=0.81 ,rely=0.08, height=348+20)
 
-
-
-
-
-    nsb = Button(frame2, text="Hide", fg=buttonFg, bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
+    nsb = Button(initPage, text="Hide", fg=buttonFg, bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
     nsb.place(relx=0.85,rely=0.08)
 
-    nsb1 = Button(frame2, text="View Hidden", fg=buttonFg, bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
+    nsb1 = Button(initPage, text="View Hidden", fg=buttonFg, bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
     nsb1.place(relx=0.85,rely=0.18)
 
-    nsb2 = Button(frame2, text="Edit Detais", fg=buttonFg, bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
+    nsb2 = Button(initPage, text="Edit Detais", fg=buttonFg, bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=showDetailsFrame, width=10)
     nsb2.place(relx=0.85,rely=0.28)
 
-    # nsb3 = Button(frame2, text="Remove", fg=buttonFg, bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
-    # nsb3.place(relx=0.85,rely=0.56)
-
-    nsb2 = Button(frame2, text="Play", fg=buttonFg, bg=buttonBgSel_blue, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
+    nsb2 = Button(initPage, text="Play", fg=buttonFg, bg=buttonBgSel_blue, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
     nsb2.place(relx=0.85,rely=0.76)
 
-    nsb3 = Button(frame2, text="Stop", fg=buttonFg, bg=buttonBgSel_red, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
+    nsb3 = Button(initPage, text="Stop", fg=buttonFg, bg=buttonBgSel_red, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
     nsb3.place(relx=0.85,rely=0.86)
+
+    initPage.pack(fill=BOTH, expand=True)
+
+    # PAGE FOR EDITING DETAILS ---------------------------------------------
+    editPage = ttk.Frame(frame2,padding=0, style="Dark.TFrame")
+
+    nsl = ttk.Label(editPage, text="Edit Details", font=("Arial Bold",defaultFontSize), background=DarkBg, foreground=DarkFg)
+    nsl.place(relx=0,rely=0.01)
+
+    nsb = Button(editPage, text="Go Back", fg="white", bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=showFileListFrame, width=10)
+    nsb.place(relx=0.85,rely=0.08)
+
+    name = StringVar()
+    ttk.Label(editPage, text="Name", background=DarkBg, foreground=DarkFg, font=defaultFontSize ).place(relx=0,rely=0.1)
+
+    name_entry = Entry(editPage, width=59, textvariable=name, font=defaultFontSize, bg=fieldBg, fg=fieldFg, relief=FLAT, highlightthickness=2)
+    name_entry.place(relx=0.11,rely=0.1)
+    name_entry.focus()
+
+    
 
 
 def tab3(frame3):
