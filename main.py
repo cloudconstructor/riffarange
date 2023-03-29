@@ -22,8 +22,8 @@ frame3.pack(fill=BOTH, expand=True)
 
 # Create the pages
 notebook.add(frame1, text='Songs',underline=2)
-notebook.add(frame2, text='Audiofiles',underline=2)
 notebook.add(frame3, text='Folders',underline=2)
+notebook.add(frame2, text='Audio files',underline=2)
 notebook.pack(expand = 1, fill ="both") 
 
 
