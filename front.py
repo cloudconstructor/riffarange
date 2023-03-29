@@ -2,6 +2,7 @@ from tkinter import *
 import tkinter as tk
 from tkinter import ttk
 from tkinter.ttk import Style
+from tkinter import filedialog
 import functions as fn
 # from tkinter.messagebox import showinfo
 
@@ -36,7 +37,7 @@ def initWindow():
     root = tk.Tk()
     root.geometry('800x480')
     root.resizable(False, False)
-    root.title('RiffArange v0.5')
+    root.title('RiffArange v0.55')
     root.configure(background=DarkBg)
     return(root)
 
@@ -95,6 +96,17 @@ def theme():
                     "relief": INSIDE,
                     }
                 },
+            # "Entry":{
+            #     "configure":{
+            #         "background": fieldBg,
+            #         "foreground": fieldFg,
+            #         "relief": SOLID,
+            #         "highlightthickness": 1,
+            #         "font": defaultFontSize,
+            #         "highlightbackground": "white",
+            #         "highlightcolor": "white"
+            #         }
+            #     },
             
         } 
     )
@@ -160,17 +172,17 @@ def tab1(frame1):
     nsb = Button(frame1, text="Create new", fg="white", bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
     nsb.place(relx=0.85,rely=0.08)
 
-    psb = Button(frame1, text="Edit", fg="white", bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
+    psb = Button(frame1, text="Edit", fg=buttonFg, bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
     psb.place(relx=0.85,rely=0.18)
 
-    psb = Button(frame1, text="Delete", fg="white", bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
+    psb = Button(frame1, text="Delete", fg=buttonFg, bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
     psb.place(relx=0.85,rely=0.28)
 
 
-    nsb = Button(frame1, text="Play", fg="white", bg=buttonBgSel_blue, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
+    nsb = Button(frame1, text="Play", fg=buttonFg, bg=buttonBgSel_blue, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
     nsb.place(relx=0.85,rely=0.66)
 
-    nsb = Button(frame1, text="Stop", fg="white", bg=buttonBgSel_red, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
+    nsb = Button(frame1, text="Stop", fg=buttonFg, bg=buttonBgSel_red, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
     nsb.place(relx=0.85,rely=0.76)
 
 
@@ -223,40 +235,88 @@ def tab2(frame2):
     scrollbar2.place(relx=0.81 ,rely=0.56 ,height=148+20)
     
 
-    nsb = Button(frame2, text="Hide", fg="white", bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
+    nsb = Button(frame2, text="Hide", fg=buttonFg, bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
     nsb.place(relx=0.85,rely=0.08)
 
-    nsb1 = Button(frame2, text="View Hidden", fg="white", bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
+    nsb1 = Button(frame2, text="View Hidden", fg=buttonFg, bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
     nsb1.place(relx=0.85,rely=0.18)
 
-    nsb2 = Button(frame2, text="Validate", fg="white", bg=buttonBgSel_green, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
+    nsb2 = Button(frame2, text="Validate", fg=buttonFg, bg=buttonBgSel_green, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
     nsb2.place(relx=0.85,rely=0.28)
 
-    # nsb3 = Button(frame2, text="Stop", fg="white", bg=buttonBgSel_red, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
-    # nsb3.place(relx=0.85,rely=0.38)
-
-    nsb3 = Button(frame2, text="Remove", fg="white", bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
+    nsb3 = Button(frame2, text="Remove", fg=buttonFg, bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
     nsb3.place(relx=0.85,rely=0.56)
 
-    # nsb4 = Button(frame2, text="View Hidden", fg="white", bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
-    # nsb4.place(relx=0.85,rely=0.66)
-
-    nsb2 = Button(frame2, text="Play", fg="white", bg=buttonBgSel_blue, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
+    nsb2 = Button(frame2, text="Play", fg=buttonFg, bg=buttonBgSel_blue, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
     nsb2.place(relx=0.85,rely=0.76)
 
-    nsb3 = Button(frame2, text="Stop", fg="white", bg=buttonBgSel_red, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
+    nsb3 = Button(frame2, text="Stop", fg=buttonFg, bg=buttonBgSel_red, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10)
     nsb3.place(relx=0.85,rely=0.86)
 
 
-
-
-
-
-
-
-
-
-
 def tab3(frame3):
-    nsl = ttk.Label(frame3, text="Folders", font=("Arial Bold",defaultFontSize), background=DarkBg, foreground=DarkFg)
-    nsl.place(relx=0,rely=0.01)
+    
+    #add new directory -------------------------------------------------
+    def selectDirectory():
+        folder_selected = filedialog.askdirectory()
+        directory_entry.delete(0,END)
+        directory_entry.insert(0,folder_selected)
+        return
+
+    filepath = StringVar()
+    ttk.Label(frame3, text="Add Folder", background=DarkBg, foreground=DarkFg, font=("Arial Bold",defaultFontSize) ).place(relx=0,rely=0.01)
+
+    directory_entry = Entry(frame3, width=60, textvariable=filepath, font=defaultFontSize, bg=fieldBg, fg=fieldFg, relief=FLAT, highlightthickness=2)
+    directory_entry.place(relx=0.10,rely=0.01)
+    directory_entry.focus()
+
+    sd = Button(frame3, text="Browse", fg=buttonFg, bg=buttonBgSel_gray, relief=FLAT,  font=(defaultFont,buttonFontSize), command=selectDirectory)
+    sd.place(relx=0.81,rely=0.008)
+
+    ins = Button(frame3, text="Add Folder", fg=buttonFg, bg=buttonBgSel_green, relief=FLAT,  font=(defaultFont,buttonFontSize), command=NONE)
+    ins.place(relx=0.89,rely=0.008)
+
+    #dir list --------------------------------------------------------
+    nsl = ttk.Label(frame3, text="Added Folders", font=("Arial Bold",defaultFontSize), background=DarkBg, foreground=DarkFg)
+    nsl.place(relx=0,rely=0.12)
+
+    columns = ('col1')
+    tree1 = ttk.Treeview(frame3, columns=columns, show='headings',style="mytheme.Treeview", height="15",  selectmode="extended")
+    tree1.heading('col1', text="Folder", anchor="w")
+    tree1.column('col1', width=230)
+    # tree.bind('<<TreeviewSelect>>', item_selected)
+    tree1.place(relx=0.002 ,rely=0.2)
+
+    scrollbar = ttk.Scrollbar(frame3, orient=tk.VERTICAL, command=tree1.yview)
+    tree1.configure(yscroll=scrollbar.set)
+    scrollbar.place(relx=0.3 ,rely=0.2, height=308+20)
+    
+    columns2 = ('col1')
+    tree2 = ttk.Treeview(frame3, columns=columns2, show='headings',style="mytheme.Treeview", height="15",  selectmode="extended")
+    tree2.heading('col1', text="Files", anchor="w")
+    tree2.column('col1', width=370)
+    # tree.bind('<<TreeviewSelect>>', item_selected)
+    tree2.place(relx=0.33 ,rely=0.2)
+
+    scrollbar2 = ttk.Scrollbar(frame3, orient=tk.VERTICAL, command=tree2.yview)
+    tree2.configure(yscroll=scrollbar2.set)
+    scrollbar2.place(relx=0.81 ,rely=0.2, height=308+20)
+
+    Button(frame3, text="Select All", fg=buttonFg, bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10).place(relx=0.85,rely=0.2)
+
+    Button(frame3, text="Select None", fg=buttonFg, bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10).place(relx=0.85,rely=0.3)
+    
+
+    Button(frame3, text="Add", fg=buttonFg, bg=buttonBgSel_green, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10).place(relx=0.85,rely=0.4)
+    
+
+    Button(frame3, text="Play", fg=buttonFg, bg=buttonBgSel_blue, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10).place(relx=0.85,rely=0.76)
+
+
+    Button(frame3, text="Stop", fg=buttonFg, bg=buttonBgSel_red, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=NONE, width=10).place(relx=0.85,rely=0.86)
+    
+
+
+    
+
+
