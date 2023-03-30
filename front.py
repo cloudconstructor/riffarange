@@ -26,9 +26,11 @@ buttonBgSel_blue= "#4867aa"
 buttonFg = "#fff"
 fieldBg = "#555"
 fieldFg = "#fff"
+fieldBorderColor = "#666"
 treeBg = "#333"
 scrollBg = "#222"
 scrollFg = "#555"
+
 
 
 
@@ -158,9 +160,9 @@ def tab1(frame1):
     tree.bind('<<TreeviewSelect>>', item_selected)
     tree.place(relx=0.002 ,rely=0.08)
 
-    testfolder = "C:/Users/dclou/Music/Black Stone Machine - One With the Horde EP/One With The Horde EP/"
+    # testfolder = "C:/Users/dclou/Music/Black Stone Machine - One With the Horde EP/One With The Horde EP/"
 
-    test = fn.getFileList(testfolder)
+    # test = fn.getFileList(testfolder)
     # print(test)
     
 
@@ -242,9 +244,9 @@ def tab2(frame2):
     tree.bind('<<TreeviewSelect>>', item_selected)
     tree.place(relx=0.002 ,rely=0.08)
 
-    testfolder = "C:/Users/dclou/Music/Black Stone Machine - One With the Horde EP/One With The Horde EP/"
+    # testfolder = "C:/Users/dclou/Music/Black Stone Machine - One With the Horde EP/One With The Horde EP/"
 
-    test = fn.getFileList(testfolder)
+    # test = fn.getFileList(testfolder)
     # print(test)
     
     scrollbar = ttk.Scrollbar(initPage, orient=tk.VERTICAL, command=tree.yview)
@@ -274,15 +276,20 @@ def tab2(frame2):
     nsl = ttk.Label(editPage, text="Edit Details", font=("Arial Bold",defaultFontSize), background=DarkBg, foreground=DarkFg)
     nsl.place(relx=0,rely=0.01)
 
-    nsb = Button(editPage, text="Go Back", fg="white", bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=showFileListFrame, width=10)
-    nsb.place(relx=0.85,rely=0.08)
-
     name = StringVar()
-    ttk.Label(editPage, text="Name", background=DarkBg, foreground=DarkFg, font=defaultFontSize ).place(relx=0,rely=0.1)
+    ttk.Label(editPage, text="Title", background=DarkBg, foreground=DarkFg, font=defaultFontSize ).place(relx=0,rely=0.1)
 
-    name_entry = Entry(editPage, width=59, textvariable=name, font=defaultFontSize, bg=fieldBg, fg=fieldFg, relief=FLAT, highlightthickness=2)
-    name_entry.place(relx=0.11,rely=0.1)
+    name_entry = Entry(editPage, width=73, textvariable=name, font=defaultFontSize, bg=fieldBg, fg=fieldFg, relief=FLAT, highlightthickness=2, highlightbackground=fieldBorderColor, insertbackground=buttonBgSel_red, selectbackground=buttonBgSel_red)
+    name_entry.place(relx=0.13,rely=0.1)
     name_entry.focus()
+
+    ttk.Label(editPage, text="Description", background=DarkBg, foreground=DarkFg, font=defaultFontSize ).place(relx=0,rely=0.2)
+    desc = Text(editPage, width=73, height=5, font=defaultFontSize, bg=fieldBg, fg=fieldFg, relief=FLAT, highlightthickness=2, highlightbackground=fieldBorderColor, insertbackground=buttonBgSel_red, selectbackground=buttonBgSel_red)
+    desc.place(relx=0.13, rely=0.2)
+
+    Button(editPage, text="Save", fg="white", bg=buttonBgSel_blue, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=showFileListFrame, width=10).place(relx=0.71,rely=0.9)
+    Button(editPage, text="Cancel", fg="white", bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=showFileListFrame, width=10).place(relx=0.85,rely=0.9)
+    
 
     
 
@@ -299,7 +306,7 @@ def tab3(frame3):
     filepath = StringVar()
     ttk.Label(frame3, text="New Folder", background=DarkBg, foreground=DarkFg, font=defaultFontSize ).place(relx=0,rely=0.01)
 
-    directory_entry = Entry(frame3, width=59, textvariable=filepath, font=defaultFontSize, bg=fieldBg, fg=fieldFg, relief=FLAT, highlightthickness=2)
+    directory_entry = Entry(frame3, width=59, textvariable=filepath, font=defaultFontSize, bg=fieldBg, fg=fieldFg, relief=FLAT, highlightthickness=2, highlightbackground=fieldBorderColor, insertbackground=buttonBgSel_red, selectbackground=buttonBgSel_red)
     directory_entry.place(relx=0.11,rely=0.01)
     directory_entry.focus()
 
