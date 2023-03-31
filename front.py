@@ -98,18 +98,20 @@ def theme():
                     "relief": INSIDE,
                     }
                 },
-            # "Entry":{
-            #     "configure":{
-            #         "background": fieldBg,
-            #         "foreground": fieldFg,
-            #         "relief": SOLID,
-            #         "highlightthickness": 1,
-            #         "font": defaultFontSize,
-            #         "highlightbackground": "white",
-            #         "highlightcolor": "white"
-            #         }
-            #     },
-            
+            "TCombobox":{
+                "configure":{
+                    "padding": [5, 1],
+                    "background": fieldBg, 
+                    "selectbackground": fieldBg,
+                    "fieldbackground": fieldBg,
+                    "foreground": fieldFg,
+                    "bordercolor": fieldBorderColor,
+                    "arrowsize": 15,
+                    "arrowcolor": buttonFg,
+                    "relief": FLAT,
+                    }
+                },
+          
         } 
     )
 
@@ -200,6 +202,12 @@ def tab2(frame2):
     def showFileListFrame():
         editPage.pack_forget()
         initPage.pack(fill=BOTH, expand=True)
+
+    def saveFileAtts():
+        titleVal=name_entry.get()
+        descVal=desc.get("1.0","end-1c")
+        tuningVal=tuningList.get()
+        print(titleVal+" "+descVal+" "+tuningVal)
         
 
     initPage = ttk.Frame(frame2,padding=0, style="Dark.TFrame")
@@ -276,18 +284,30 @@ def tab2(frame2):
     nsl = ttk.Label(editPage, text="Edit Details", font=("Arial Bold",defaultFontSize), background=DarkBg, foreground=DarkFg)
     nsl.place(relx=0,rely=0.01)
 
-    name = StringVar()
     ttk.Label(editPage, text="Title", background=DarkBg, foreground=DarkFg, font=defaultFontSize ).place(relx=0,rely=0.1)
-
-    name_entry = Entry(editPage, width=73, textvariable=name, font=defaultFontSize, bg=fieldBg, fg=fieldFg, relief=FLAT, highlightthickness=2, highlightbackground=fieldBorderColor, insertbackground=buttonBgSel_red, selectbackground=buttonBgSel_red)
+    name_entry = Entry(editPage, width=73, font=defaultFontSize, bg=fieldBg, fg=fieldFg, relief=FLAT, highlightthickness=2, highlightbackground=fieldBorderColor, insertbackground=buttonBgSel_red, selectbackground=buttonBgSel_red)
     name_entry.place(relx=0.13,rely=0.1)
     name_entry.focus()
 
     ttk.Label(editPage, text="Description", background=DarkBg, foreground=DarkFg, font=defaultFontSize ).place(relx=0,rely=0.2)
     desc = Text(editPage, width=73, height=5, font=defaultFontSize, bg=fieldBg, fg=fieldFg, relief=FLAT, highlightthickness=2, highlightbackground=fieldBorderColor, insertbackground=buttonBgSel_red, selectbackground=buttonBgSel_red)
     desc.place(relx=0.13, rely=0.2)
+    
+    ttk.Label(editPage, text="Tuning", background=DarkBg, foreground=DarkFg, font=defaultFontSize ).place(relx=0,rely=0.5)
 
-    Button(editPage, text="Save", fg="white", bg=buttonBgSel_blue, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=showFileListFrame, width=10).place(relx=0.71,rely=0.9)
+    # text_font = (defaultFont, 30)
+    tunings = ["E Straight","D straight", "C straight", "Drop D", "Drop C"]
+    tuningList = ttk.Combobox(editPage, values=tunings, width=71, font=defaultFontSize)
+
+    # tuningList.set("Select the tuning the clip was recorded")
+    
+    root.option_add('*TCombobox*Listbox.background', fieldBg)
+    root.option_add('*TCombobox*Listbox.foreground', fieldFg)
+    tuningList.place(relx=0.13,rely=0.5)
+
+    ttk.Label(editPage, text="Select the tuning the clip was recorded", background=DarkBg, foreground=DarkFg, font=defaultFontSize ).place(relx=0.13,rely=0.56)
+
+    Button(editPage, text="Save", fg="white", bg=buttonBgSel_blue, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=saveFileAtts, width=10).place(relx=0.71,rely=0.9)
     Button(editPage, text="Cancel", fg="white", bg=buttonBgSel_gray, relief=FLAT, font=(defaultFont,buttonFontSize), padx=5, pady=5 , command=showFileListFrame, width=10).place(relx=0.85,rely=0.9)
     
 
@@ -296,24 +316,26 @@ def tab2(frame2):
 
 def tab3(frame3):
     
-    #add new directory -------------------------------------------------
-    def selectDirectory():
+    def selectFolder():
         folder_selected = filedialog.askdirectory()
         directory_entry.delete(0,END)
         directory_entry.insert(0,folder_selected)
         return
 
-    filepath = StringVar()
+    def addFolder():
+        folder=directory_entry.get()
+        print(folder)
+
     ttk.Label(frame3, text="New Folder", background=DarkBg, foreground=DarkFg, font=defaultFontSize ).place(relx=0,rely=0.01)
 
-    directory_entry = Entry(frame3, width=59, textvariable=filepath, font=defaultFontSize, bg=fieldBg, fg=fieldFg, relief=FLAT, highlightthickness=2, highlightbackground=fieldBorderColor, insertbackground=buttonBgSel_red, selectbackground=buttonBgSel_red)
+    directory_entry = Entry(frame3, width=59, font=defaultFontSize, bg=fieldBg, fg=fieldFg, relief=FLAT, highlightthickness=2, highlightbackground=fieldBorderColor, insertbackground=buttonBgSel_red, selectbackground=buttonBgSel_red)
     directory_entry.place(relx=0.11,rely=0.01)
     directory_entry.focus()
 
-    sd = Button(frame3, text="Browse", fg=buttonFg, bg=buttonBgSel_gray, relief=FLAT,  font=(defaultFont,buttonFontSize), command=selectDirectory)
+    sd = Button(frame3, text="Browse", fg=buttonFg, bg=buttonBgSel_gray, relief=FLAT,  font=(defaultFont,buttonFontSize), command=selectFolder)
     sd.place(relx=0.81,rely=0.008)
 
-    ins = Button(frame3, text="Add Folder", fg=buttonFg, bg=buttonBgSel_green, relief=FLAT,  font=(defaultFont,buttonFontSize), command=NONE)
+    ins = Button(frame3, text="Add Folder", fg=buttonFg, bg=buttonBgSel_green, relief=FLAT,  font=(defaultFont,buttonFontSize), command=addFolder)
     ins.place(relx=0.89,rely=0.008)
 
     #dir list --------------------------------------------------------
