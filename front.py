@@ -293,7 +293,7 @@ def tab2(frame2):
     desc = Text(editPage, width=73, height=5, font=defaultFontSize, bg=fieldBg, fg=fieldFg, relief=FLAT, highlightthickness=2, highlightbackground=fieldBorderColor, insertbackground=buttonBgSel_red, selectbackground=buttonBgSel_red)
     desc.place(relx=0.13, rely=0.2)
     
-    ttk.Label(editPage, text="Tuning", background=DarkBg, foreground=DarkFg, font=defaultFontSize ).place(relx=0,rely=0.5)
+    ttk.Label(editPage, text="Tuned at", background=DarkBg, foreground=DarkFg, font=defaultFontSize ).place(relx=0,rely=0.5)
 
     # text_font = (defaultFont, 30)
     tunings = ["E Straight","D straight", "C straight", "Drop D", "Drop C"]
