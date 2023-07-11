@@ -19,17 +19,26 @@ frame2.pack(fill=BOTH, expand=True)
 frame3 = ttk.Frame(notebook, padding=10, style="Dark.TFrame")
 frame3.pack(fill=BOTH, expand=True)
 
+frame4 = ttk.Frame(notebook, padding=10, style="Dark.TFrame")
+frame4.pack(fill=BOTH, expand=True)
+
+frame5 = ttk.Frame(notebook, padding=10, style="Dark.TFrame")
+frame5.pack(fill=BOTH, expand=True)
+
 
 # Create the pages
 notebook.add(frame1, text='Songs',underline=2)
 notebook.add(frame3, text='Folders',underline=2)
 notebook.add(frame2, text='Audio files',underline=2)
+notebook.add(frame4, text='Settings',underline=2)
+notebook.add(frame5, text='About',underline=2)
 notebook.pack(expand = 1, fill ="both") 
 
 
 f.tab1(frame1)
 f.tab2(frame2)
 f.tab3(frame3)
+# f.tab4(frame4)
 
 
 
