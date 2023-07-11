@@ -381,4 +381,11 @@ def tab3(frame3):
 
     
 
+def tab4(frame4):
+    ttk.Label(frame4, text="Settings",  font=("Arial Bold",defaultFontSize), background=DarkBg, foreground=DarkFg ).place(relx=0,rely=0.01)
+    # nsl = ttk.Label(frame1, text="Song Arrangements", font=("Arial Bold",defaultFontSize), background=DarkBg, foreground=DarkFg)
 
+
+
+def tab5(frame5):
+    ttk.Label(frame5, text="About", background=DarkBg, foreground=DarkFg, font=defaultFontSize ).place(relx=0,rely=0.01)    

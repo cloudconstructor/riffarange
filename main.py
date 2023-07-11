@@ -38,7 +38,8 @@ notebook.pack(expand = 1, fill ="both")
 f.tab1(frame1)
 f.tab2(frame2)
 f.tab3(frame3)
-# f.tab4(frame4)
+f.tab4(frame4)
+f.tab5(frame5)
 
 
 
